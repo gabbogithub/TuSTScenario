@@ -7,17 +7,18 @@
 
     <input>
         <net-file value="./TuST.net.xml"/>
-        <route-files value="./Routing.rou.xml"/>
-        <additional-files value="./TAZ_file_residential.taz.xml,./Detectors.add.xml,./TuSTVtype.xml"/>
+        <route-files value="./Routing.rou.tar.gz"/>
+	<!--additional-files value="./TAZ_file_residential.taz.xml,./Detectors.add.xml,./TuSTVtype.xml"-->
+        <additional-files value="./TAZ_file_residential.taz.xml,./TuSTVtype.xml"/>
     </input>
 
     <output>
-        <summary-output value="./Output/Summary.xml"/>
-        <vehroute-output value="./Output/VehTraces.xml"/>
+        <!--summary-output value="./Output/Summary.xml"/>
+        <vehroute-output value="./Output/VehTraces.xml">
         <vehroute-output.exit-times value="true"/>
         <vehroute-output.sorted value="true"/>
         <vehroute-output.route-length value="true"/>
-        <vehroute-output.write-unfinished value="true"/>
+        <vehroute-output.write-unfinished value="true"-->
     </output>
 
     <time>

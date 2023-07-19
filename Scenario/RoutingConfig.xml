@@ -12,11 +12,12 @@
     </input>
 
     <output>
-        <output-file value="./Routing.rou.xml"/>
+        <output-file value="./Routing.rou.tar.gz"/>
     </output>
 
     <processing>
         <aggregation-interval value="86400"/>
+	<scale value="0.8"/>
         <weights.expand value="true"/>
         <vtype value="passenger"/>
         <additive-traffic value="true"/>
