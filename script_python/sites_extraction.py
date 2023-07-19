@@ -25,7 +25,7 @@ def extraction(input_path, output_file, city_name):
     cell_sites = turin_cells.drop_duplicates(subset=['node_id'])
 
     # eliminate every column that won't be needed for the simulation
-    cell_sites = cell_sites[['node_id', 'cell_lat', 'cell_long', 'site_name']]
+    cell_sites = cell_sites[['node_id', 'site_lat', 'site_long', 'site_name']]
 
     cell_sites.to_csv(output_file, mode='w',  index=False)
 
