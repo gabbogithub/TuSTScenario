@@ -5,8 +5,9 @@ import random
 import pandas
 import argparse
 from pathlib import Path
+import time
 
-def new_cell_site(poi_pos, veh_coord):
+def new_cell_site(poi_pos, veh_coord, max_dist):
     """ 
     Computes the new site for a vehicle.
 
@@ -20,11 +21,13 @@ def new_cell_site(poi_pos, veh_coord):
         position.
     veh_coord : tuple
         Coordinates with the current vehicle position.
+    max_dist : float
+        The maximum allowed distance between the vehicle and the site.
 
     Returns
     -------
     string
-        The new site's id.
+        The new site's id or 'None' if no cell site is near enough.
     """
 
     new_site = (None,float('inf'))
@@ -35,11 +38,11 @@ def new_cell_site(poi_pos, veh_coord):
         if dist < new_site[1]:
             new_site = (id, dist)
     
-    return new_site[0]
+    return new_site[0] if new_site[1] <= max_dist else None
 
 def check_connection(poi_coord, veh_coord, dist):
     """ Checks whether the distance between a vehicle and a site is greater 
-    than 2000 meters
+    than the parameter 'dist'.
 
     Parameters
     ----------
@@ -47,11 +50,13 @@ def check_connection(poi_coord, veh_coord, dist):
         The site's coordinates.
     veh_coord : tuple
         The vehicle's coordinates.
+    dist : float
+        The distance in meters between the vehicle and the tower to check.
 
     Returns
     -------
-    float
-        The distance.
+    bool
+        True if distance is greater than the specified parameter, False otherwise.
     """
 
     return libsumo.simulation.getDistance2D(poi_coord[0], poi_coord[1], 
@@ -155,6 +160,7 @@ def main():
                         "input sites file and the number of sites to generate")        
 
     poi_pos = {poi_id:libsumo.poi.getPosition(poi_id) for poi_id in libsumo.poi.getIDList()}
+    start = time.perf_counter()
     for step in range(args.time+1):
         check = True if step % args.step == 0 else False
         libsumo.simulationStep()
@@ -189,11 +195,11 @@ def main():
             # by the variable 'args.distance'
             if not poi_id or (check and check_connection(poi_pos[poi_id], 
                                                          coordinates_veh, args.distance)):
-                vehicles[key] = new_cell_site(poi_pos, coordinates_veh)
+                vehicles[key] = new_cell_site(poi_pos, coordinates_veh, args.distance)
 
         if check:
             write_positions(vehicles, step, args.output)
-
+    print(f"Tempo: {time.perf_counter() - start}")
     libsumo.close()
 
 if __name__ == '__main__':

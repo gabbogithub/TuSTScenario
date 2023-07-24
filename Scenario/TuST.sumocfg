@@ -13,12 +13,12 @@
     </input>
 
     <output>
-        <!--summary-output value="./Output/Summary.xml"/>
-        <vehroute-output value="./Output/VehTraces.xml">
-        <vehroute-output.exit-times value="true"/>
-        <vehroute-output.sorted value="true"/>
+        <!--summary-output value="./Output/Summary.xml"-->
+        <vehroute-output value="./Output/VehTraces.xml"/>
+        <!--vehroute-output.exit-times value="true"-->
+        <!--vehroute-output.sorted value="true"-->
         <vehroute-output.route-length value="true"/>
-        <vehroute-output.write-unfinished value="true"-->
+        <vehroute-output.write-unfinished value="true"/>
     </output>
 
     <time>
