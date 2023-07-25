@@ -5,7 +5,6 @@ import random
 import pandas
 import argparse
 from pathlib import Path
-import time
 
 def new_cell_site(poi_pos, veh_coord, max_dist):
     """ 
@@ -153,14 +152,13 @@ def main():
             y = random.randint(y_min, y_max)
             libsumo.poi.add(str(i), x, y, red)
             site_pos = pandas.DataFrame([{'site_id': str(i), 'x': x, 'y': y}])
-            print(site_pos)
             site_pos.to_csv(csv_name, mode='a', index=False, header=False)
     else:
         raise TypeError("You need to provide at least one argument between the "
                         "input sites file and the number of sites to generate")        
 
     poi_pos = {poi_id:libsumo.poi.getPosition(poi_id) for poi_id in libsumo.poi.getIDList()}
-    start = time.perf_counter()
+
     for step in range(args.time+1):
         check = True if step % args.step == 0 else False
         libsumo.simulationStep()
@@ -185,9 +183,9 @@ def main():
             libsumo.vehicle.subscribe(veh_id, [libsumo.constants.VAR_POSITION])
         
         # retrieves the vehicles' positions
-        for key, value in libsumo.vehicle.getAllSubscriptionResults().items():
-            coordinates_veh = value[libsumo.constants.VAR_POSITION]
-            poi_id = vehicles.get(key, None)
+        for veh_id, subscriptions in libsumo.vehicle.getAllSubscriptionResults().items():
+            coordinates_veh = subscriptions[libsumo.constants.VAR_POSITION]
+            poi_id = vehicles.get(veh_id, None)
 
             # assigns a new site to a vehicle only if it entered the simulation 
             # in this step or the steps indicated by 'args.step' have passed and
@@ -195,11 +193,10 @@ def main():
             # by the variable 'args.distance'
             if not poi_id or (check and check_connection(poi_pos[poi_id], 
                                                          coordinates_veh, args.distance)):
-                vehicles[key] = new_cell_site(poi_pos, coordinates_veh, args.distance)
+                vehicles[veh_id] = new_cell_site(poi_pos, coordinates_veh, args.distance)
 
         if check:
             write_positions(vehicles, step, args.output)
-    print(f"Tempo: {time.perf_counter() - start}")
     libsumo.close()
 
 if __name__ == '__main__':
