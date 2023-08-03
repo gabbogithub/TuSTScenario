@@ -44,7 +44,7 @@
     </mesoscopic>
 
     <random_number>
-        <random value="true"/>
+        <!--random value="true"-->
     </random_number>
 
 </configuration>
