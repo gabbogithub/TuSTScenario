@@ -14,11 +14,15 @@
 
     <output>
         <!--summary-output value="./Output/Summary.xml"-->
-        <vehroute-output value="./Output/VehTraces.xml"/>
+        <!--vehroute-output value="./Output/VehTraces.xml"-->
         <!--vehroute-output.exit-times value="true"-->
         <!--vehroute-output.sorted value="true"-->
-        <vehroute-output.route-length value="true"/>
-        <vehroute-output.write-unfinished value="true"/>
+        <!--vehroute-output.route-length value="true"-->
+        <!--vehroute-output.write-unfinished value="true"-->
+        <!--fcd-output value="./Output/FCDOutput.xml"-->
+        <!--fcd-output.attributes value="id,edge,x,y"-->
+        <!--fcd-output.geo value="true"-->
+        <!--device.fcd.period value="180"-->
     </output>
 
     <time>

@@ -15,8 +15,10 @@ def extraction(input_path, output_file, city_name):
     city_name : string
         City name to filter the sites.
     """
+
+    col_list = ['node_id', 'cell_lat', 'cell_long', 'site_name']
     
-    df = pandas.read_csv(input_path, sep=";")
+    df = pandas.read_csv(input_path, sep=";", usecols=col_list)
 
     # filters the dataframe to keep only the sites of the specified city
     turin_cells = df[df['site_name'].str.contains(city_name, na=False)]
@@ -32,7 +34,11 @@ def extraction(input_path, output_file, city_name):
 
     cell_sites.to_csv(output_file, mode='w',  index=False)
 
-if __name__ == '__main__':
+def main():
+    """ Handles the command line arguments and calls the extraction function 
+    with their values.
+    """
+    
     parser = argparse.ArgumentParser(description="file that extracts from an "
                                     "input file the cell sites of a certain" 
                                     "city and writes to a new file the node id, "
@@ -49,3 +55,6 @@ if __name__ == '__main__':
     output_path.parent.mkdir(exist_ok=True, parents=True)
 
     extraction(args.input, args.output, args.city)
+
+if __name__ == '__main__':
+    main()

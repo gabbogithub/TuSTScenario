@@ -15,7 +15,7 @@ def new_cell_site(poi_pos, veh_coord, max_dist):
 
     Parameters
     ----------
-    poi_pos : dict
+    poi_pos : dictionary
         A dictionary that maps a site id to a tuple with the coordinates of its 
         position.
     veh_coord : tuple
@@ -66,9 +66,9 @@ def write_positions(vehicles, step, file_path):
 
     Parameters
     ----------
-    vehicles : dict
+    vehicles : dictionary
         Dictionary that maps every vehicle's id to its site.
-    step : int
+    step : integer
         The current step of the simulation.
     file_name : string
         The file path to the output file.
@@ -80,6 +80,10 @@ def write_positions(vehicles, step, file_path):
     df.to_csv(file_path, mode='a', index=False, header=False)
     
 def main():
+    """ Main function that computes the associations between vehicles and cell 
+    sites. It handles the command line arguments using a parser and it also
+    controls the simulation.
+    """
 
     parser = argparse.ArgumentParser(description="file that maps every vehicle "
                                      "of the simulation to a cell site of the "

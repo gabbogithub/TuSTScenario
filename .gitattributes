@@ -4,6 +4,8 @@ Scenario/Output/DetectorsOutput.xml filter=lfs diff=lfs merge=lfs -text
 Scenario/Trip.odtrips.xml filter=lfs diff=lfs merge=lfs -text
 Scenario/TuST.net.xml filter=lfs diff=lfs merge=lfs -text
 Scenario/Output/FullDay/VehTraces.tar.gz filter=lfs diff=lfs merge=lfs -text
+script_python/input_files/* filter=lfs diff=lfs merge=lfs -text
 script_python/output_sites/* filter=lfs diff=lfs merge=lfs -text
 script_python/output_associations/* filter=lfs diff=lfs merge=lfs -text
+script_python/output_analysis/* filter=lfs diff=lfs merge=lfs -text
 *.tar.gz filter=lfs diff=lfs merge=lfs -text
