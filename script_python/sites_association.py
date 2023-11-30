@@ -174,14 +174,6 @@ def main():
             except:
                 print("Error during the removal of the arrived vehicles")
 
-        # deletes teleported vehicles outside the simulation because they were 
-        # idle for too long
-        for veh_id in libsumo.simulation.getEndingTeleportIDList():
-            try:
-                del vehicles[veh_id]
-            except:
-                print("Error during the removal of the teleported vehicles")
-
         # subscribes new vehicles to register their position
         for veh_id in libsumo.simulation.getDepartedIDList():
             libsumo.vehicle.subscribe(veh_id, [libsumo.constants.VAR_POSITION])
